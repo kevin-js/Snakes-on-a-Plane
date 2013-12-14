@@ -5,6 +5,8 @@
  *
  */
 public class SnakeNode {
+	private final int SNAKE_NODE_LENGTH = 10;
+	private final int SNAKE_NODE_WIDTH = 4;
 	private int xPosition;
 	private int yPosition;
 	private int xVelocity;

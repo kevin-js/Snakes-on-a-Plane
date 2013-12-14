@@ -8,6 +8,7 @@ import javax.swing.*;
  */
 
 public class SnakeMain extends JFrame{
+	
 	public SnakeMain(){
 		setSize(600, 600);
 		setVisible(true);
@@ -17,6 +18,10 @@ public class SnakeMain extends JFrame{
 		
 	}
 	
+	/**
+	 * execute the game
+	 * @param args
+	 */
 	public static void main(String [] args){
 		SnakeMain run = new SnakeMain();
 	}

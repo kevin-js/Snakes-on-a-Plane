@@ -1,5 +1,3 @@
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -8,8 +6,9 @@ import java.util.Random;
  * @author kevinguh
  *
  */
-public class Snake implements KeyListener{
+public class Snake {
 	LinkedList<SnakeNode> snake;
+	LinkedList<SnakeFlag> flags;
 	Random rand = new Random();
 	protected int snakeLength;
 	protected int xPosition;
@@ -122,34 +121,4 @@ public class Snake implements KeyListener{
 	public int getYVelocity(){
 		return yVelocity;
 	}
-	
-	/**
-	 * instructions for how the game will respond to key presses
-	 */
-	public void keyPressed(KeyEvent k) {
-		int keyValue = k.getKeyCode();
-		
-		// only change the snake movement when valid
-		switch(keyValue) {
-			case KeyEvent.VK_UP:
-				yVelocity -= 2;
-				break;
-				
-			case KeyEvent.VK_DOWN:
-				yVelocity += 2;
-				break;
-				
-			case KeyEvent.VK_LEFT:
-				xVelocity -= 2;
-				break;
-					
-			case KeyEvent.VK_RIGHT:
-				xVelocity += 2;
-				break;
-		}
-			
-	}
-
-	public void keyReleased(KeyEvent k) { }
-	public void keyTyped(KeyEvent k) { }
 }
