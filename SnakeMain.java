@@ -13,6 +13,10 @@ public class SnakeMain extends JFrame{
 		setVisible(true);
 	}
 
+	public void updateGameState(){
+		
+	}
+	
 	public static void main(String [] args){
 		SnakeMain run = new SnakeMain();
 	}
