@@ -1,6 +1,8 @@
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.LinkedList;
+import java.util.Random;
+
 /**
  * class for the snake
  * @author kevinguh
@@ -8,6 +10,7 @@ import java.util.LinkedList;
  */
 public class Snake implements KeyListener{
 	LinkedList<SnakeNode> snake;
+	Random rand = new Random();
 	protected int snakeLength;
 	protected int xPosition;
 	protected int xVelocity;
@@ -18,33 +21,57 @@ public class Snake implements KeyListener{
 	
 	/**
 	 * constructor method for the snake
-	 * @param xStart randomly generated starting x position
-	 * @param yStart randomly generated starting y position
-	 * @param xDir randomly generated boolean determining if snake will start with movement in x-direction
-	 * @param yDir randomly generated boolean determining if snake will start with movement in y-direction
 	 */
-	public Snake(int xStart, int yStart, boolean xDir, boolean yDir){
-		xPosition = xStart;
-		yPosition = yStart;
-		snakeLength = 1;
-		if(xDir)
-			xVelocity = 10;
-			yVelocity = 0;
-		if(yDir)
-			yVelocity = 10;
-			xVelocity = 0;
+	public Snake(SnakeMain game){
+		xPosition = generateRandXPosition(rand, game);
+		yPosition = generateRandYPosition(rand, game);
+		xVelocity = generateRandVelocity(rand);
+		yVelocity = generateRandVelocity(rand);
 		snake = new LinkedList<SnakeNode>();
 		snake.add(new SnakeNode(this));
+		snakeLength = snake.size();
 		X_INIT_VELOCITY = xVelocity;
 		Y_INIT_VELOCITY = yVelocity;
 	}
 	
 	/**
+	 * method to generate random velocity
+	 * @param random Random object
+	 * @return velocity randomly generated velocity
+	 */
+	public int generateRandVelocity(Random random){
+		int velocity = random.nextInt(10);
+		boolean velocityFlip = random.nextBoolean();
+		if(velocityFlip)
+			velocity = -velocity;
+		return velocity;
+	}
+	
+	/**
+	 * method for generating random x positions
+	 * @param random Random object
+	 * @param main the main game
+	 */
+	public int generateRandXPosition(Random random, SnakeMain main){
+		int position = random.nextInt(main.getWidth());
+		return position;
+	}
+	
+	/**
+	 * method for generating random y positions
+	 * @param random Random object
+	 * @param main the main game
+	 */
+	public int generateRandYPosition(Random random, SnakeMain main){
+		int position = random.nextInt(main.getHeight());
+		return position;
+	}
+	/**
 	 * method that lengthens the snake when it eats an object
 	 */
 	public void addNode(int xPosition, int yPosition, int xVelocity, int yVelocity){
-		snakeLength++;
 		snake.add(new SnakeNode(this));
+		snakeLength = snake.size();
 	}
 
 	/**
@@ -104,39 +131,24 @@ public class Snake implements KeyListener{
 		// only change the snake movement when valid
 		switch(keyValue) {
 			case KeyEvent.VK_UP:
-				if(yVelocity == 0) {
-					yVelocity = -10;
-					xVelocity = 0;
-				}
+				yVelocity -= 2;
 				break;
 				
 			case KeyEvent.VK_DOWN:
-				if(yVelocity == 0) {
-					yVelocity = 10;
-					xVelocity = 0;
-				}
+				yVelocity += 2;
 				break;
 				
 			case KeyEvent.VK_LEFT:
-				if(xVelocity == 0) {
-					xVelocity = -10;
-					yVelocity = 0;
-				}
+				xVelocity -= 2;
 				break;
 					
 			case KeyEvent.VK_RIGHT:
-				if(xVelocity == 0) {
-					xVelocity = 10;
-					yVelocity = 0;
-				}
+				xVelocity += 2;
 				break;
 		}
 			
 	}
 
-	@Override
 	public void keyReleased(KeyEvent k) { }
-
-	@Override
 	public void keyTyped(KeyEvent k) { }
 }
