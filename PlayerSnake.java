@@ -4,7 +4,7 @@
  *
  */
 public class PlayerSnake extends Snake {
-	public PlayerSnake(int xStart, int yStart, boolean xDir, boolean yDir){
-		super(xStart, yStart, xDir, yDir);
+	public PlayerSnake(SnakeMain game){
+		super(game);
 	}
 }

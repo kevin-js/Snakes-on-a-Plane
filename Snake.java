@@ -21,6 +21,7 @@ public class Snake implements KeyListener{
 	
 	/**
 	 * constructor method for the snake
+	 * @param game the main game
 	 */
 	public Snake(SnakeMain game){
 		xPosition = generateRandXPosition(rand, game);
