@@ -1,3 +1,5 @@
+import java.awt.*;
+import javax.swing.*;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -9,12 +11,14 @@ import java.util.Random;
 public class Snake {
 	LinkedList<SnakeNode> snake;
 	LinkedList<SnakeFlag> flags;
-	Random rand = new Random();
+	protected Random rand = new Random();
+	protected Color snakeColor;
 	protected int snakeLength;
 	protected int xPosition;
 	protected int xVelocity;
 	protected int yPosition;
 	protected int yVelocity;
+	protected boolean isVertical;
 	protected final int X_INIT_VELOCITY;
 	protected final int Y_INIT_VELOCITY;
 	
@@ -25,11 +29,11 @@ public class Snake {
 	public Snake(SnakeMain game){
 		xPosition = generateRandXPosition(rand, game);
 		yPosition = generateRandYPosition(rand, game);
-		xVelocity = generateRandVelocity(rand);
-		yVelocity = generateRandVelocity(rand);
+		xVelocity = generateRandVelocity(rand, 10);
+		yVelocity = generateRandVelocity(rand, 10);
 		snake = new LinkedList<SnakeNode>();
 		snake.add(new SnakeNode(this));
-		snakeLength = snake.size();
+		snakeLength = snake.size();							// should equal 1
 		X_INIT_VELOCITY = xVelocity;
 		Y_INIT_VELOCITY = yVelocity;
 	}
@@ -39,8 +43,8 @@ public class Snake {
 	 * @param random Random object
 	 * @return velocity randomly generated velocity
 	 */
-	public int generateRandVelocity(Random random){
-		int velocity = random.nextInt(10);
+	public int generateRandVelocity(Random random, int maxVelocity){
+		int velocity = random.nextInt(maxVelocity);
 		boolean velocityFlip = random.nextBoolean();
 		if(velocityFlip)
 			velocity = -velocity;
@@ -70,10 +74,20 @@ public class Snake {
 	 * method that lengthens the snake when it eats an object
 	 */
 	public void addNode(int xPosition, int yPosition, int xVelocity, int yVelocity){
+		snakeLength++;
 		snake.add(new SnakeNode(this));
-		snakeLength = snake.size();
 	}
 
+	/**
+	 * method to draw the graphical representation of the snake
+	 * @param page Graphics object on which snake will be drawn
+	 */
+	public void drawSnake(Graphics page){
+		for(SnakeNode node : snake){
+			node.drawNode(page);
+		}
+	}
+	
 	/**
 	 * method to move the snake in the x-direction
 	 * @param deltaX how much the snake should move in the x-direction
@@ -120,5 +134,21 @@ public class Snake {
 	 */
 	public int getYVelocity(){
 		return yVelocity;
+	}
+	
+	/**
+	 * getter method for snakeLength variable
+	 * @return snakeLength
+	 */
+	public int getLength(){
+		return snakeLength;
+	}
+	
+	/**
+	 * getter method for snakeColor variable
+	 * @return snakeColor
+	 */
+	public Color getColor(){
+		return snakeColor;
 	}
 }

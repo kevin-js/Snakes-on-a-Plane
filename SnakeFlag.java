@@ -8,7 +8,7 @@ public class SnakeFlag {
 	private int yCoord;
 	private int xVel;
 	private int yVel;
-	
+
 	/**
 	 * constructor method for a SnakeFlag
 	 * @param snake the snake being tracked
