@@ -36,6 +36,10 @@ public class Game extends Canvas implements Runnable {
 		frame.setVisible(true);
 		frame.setResizable(true);
 		frame.add(run);
+
+		// the content pane for the game
+		JPanel myContentPanel = new JPanel(new BorderLayout());
+
 	}
 
 	@Override
